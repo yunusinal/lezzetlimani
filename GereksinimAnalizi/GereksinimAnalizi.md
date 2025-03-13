@@ -37,4 +37,4 @@
 ## GEREKSİNİM DAĞILIMLARI
 1. ####  [Yunus İNAL'ın Gereksinimleri (11)](Gereksinim-Yunusİnal.md)
 
-2. #### Yunus Emre KESELİ'nin Gereksinimleri (13)
+2. #### [Yunus Emre KESELİ'nin Gereksinimleri (13)](Gereksinim-YunusEmreKeseli.md)
