@@ -1,28 +1,26 @@
-# ??? LezzetLiman�
+# 🍽️ LezzetLimanı 
 
-## ?? Proje Hakk�nda
+### ℹ️ Proje Hakkında
 
-LezzetLiman�, kullan�c�lar�n yerel restoranlardan h�zl� ve kolay yemek sipari� edebilece�i, sipari�lerini takip edebilece�i bir web uygulamas�d�r. Kullan�c�lar, restoran ve yemekleri t�r, puan, fiyat ve teslimat s�resine g�re filtreleyebilir, favorilerine ekleyebilir ve sipari�lerini ki�iselle�tirebilirler.  
-Kredi kart�, nakit ve kap�da POS ile g�venli �deme se�enekleri sunulur. Platform, kullan�c�lara kampanya ve indirim bildirimleri g�nderir ve restoranlarla kullan�c�lar aras�nda sipari� s�recini h�zl� ve g�venli hale getirir.
 
-**Projenin Kategorisi:** Yemek Sipari� ve Teslimat Platformu
+LezzetLimanı, kullanıcıların yerel restoranlardan hızlı ve kolay yemek sipariş edebileceği, siparişlerini takip edebileceği bir web uygulamasıdır. Kullanıcılar, restoran ve yemekleri tür, puan, fiyat ve teslimat süresine göre filtreleyebilir, favorilerine ekleyebilir ve siparişlerini kişiselleştirebilirler.   
+Kredi kartı, nakit ve kapıda POS ile güvenli ödeme seçenekleri sunulur. Platform, kullanıcılara kampanya ve indirim bildirimleri gönderir ve restoranlarla kullanıcılar arasında sipariş sürecini hızlı ve güvenli hale getirir.
+
+
+
+**Projenin Kategorisi:** Yemek Sipariş ve Teslimat Platformu
 
 **Referans Uygulama :** [yemeksepeti.com](https://www.yemeksepeti.com/restaurants/new?lng=30.58243047530587&lat=37.80179700249864&vertical=restaurants)
 
-**Grup Ad�:** YunusVEYunus
+**Grup Adı:** YunusVEYunus
 
-**Proje Ekibi:** Yunus �NAL , Yunus Emre KESEL�
+**Proje Ekibi:** Yunus İNAL , Yunus Emre KESELİ
 
 ### 1. [Gereksinim Analizi](/docs/GereksinimAnalizi/GereksinimAnalizi.md)
 
-### 2. [Durum Diyagram�](/docs/Durum%20Diyagram�.md)
+### 2. [Durum Diyagramı](/docs/Durum-Diyagrami.md)
 
-### 3. [Durum Senaryolar�]
-
-.  
-### 2. [Durum Diyagramı](/Durum-Diyagrami.md)
-
-### 3. [Durum Senaryoları](/Durum-Senaryolari.md)   
+### 3. [Durum Senaryoları](./docs/Durum-Senaryolari.md)   
 
 .  
 .

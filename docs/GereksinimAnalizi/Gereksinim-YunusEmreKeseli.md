@@ -1,24 +1,25 @@
-### ?? Kullanıcı İşlemleri
+### ğŸ‘¤KullanÄ±cÄ± Ä°ÅŸlemleri
+1. **KayÄ±t Olma :** KullanÄ±cÄ±larÄ±n platformda yeni bir hesap oluÅŸturmasÄ±nÄ± saÄŸlar; isim, e-posta, telefon numarasÄ± ve ÅŸifre gibi temel bilgileri girerek hÄ±zlÄ± ve gÃ¼venli bir ÅŸekilde Ã¼ye olabilirler.
 
-1. **Kayıt Olma :** Kullanıcıların platformda yeni bir hesap oluşturmasını sağlar; isim, e-posta, telefon numarası ve şifre gibi temel bilgileri girerek hızlı ve güvenli bir şekilde üye olabilirler.
+2. **GiriÅŸ Yapma :** KayÄ±tlÄ± kullanÄ±cÄ±larÄ±n e-posta veya telefon numaralarÄ± ve ÅŸifreleri ile platforma giriÅŸ yapabilmelerini saÄŸlar; bÃ¶ylece kullanÄ±cÄ±lar hesaplarÄ±na ve kayÄ±tlÄ± bilgilerine kolayca eriÅŸebilirler.
+3. **Ã‡Ä±kÄ±ÅŸ Yapma :**  KullanÄ±cÄ±larÄ±n platform Ã¼zerindeki hesaplarÄ±ndan gÃ¼venli bir ÅŸekilde Ã§Ä±kÄ±ÅŸ yapmasÄ±nÄ± saÄŸlar; bÃ¶ylelikle kullanÄ±cÄ±lar hesap gÃ¼venliÄŸini koruyabilir ve farklÄ± hesaplar arasÄ±nda geÃ§iÅŸ yapabilirler.
+4. **Åifremi Unuttum :** KullanÄ±cÄ±lar, hesaplarÄ±na giriÅŸ yaparken ÅŸifrelerini unuttuklarÄ± durumda e-posta veya telefon numarasÄ± Ã¼zerinden ÅŸifrelerini sÄ±fÄ±rlayabilirler; bu da hesap gÃ¼venliÄŸini ve eriÅŸim kolaylÄ±ÄŸÄ±nÄ± arttÄ±rÄ±r.
 
-2. **Giriş Yapma :** Kayıtlı kullanıcıların e-posta veya telefon numaraları ve şifreleri ile platforma giriş yapabilmelerini sağlar; böylece kullanıcılar hesaplarına ve kayıtlı bilgilerine kolayca erişebilirler.
-3. **Çıkış Yapma :** Kullanıcıların platform üzerindeki hesaplarından güvenli bir şekilde çıkış yapmasını sağlar; böylelikle kullanıcılar hesap güvenliğini koruyabilir ve farklı hesaplar arasında geçiş yapabilirler.
-4. Şifremi Unuttum :\*\* Kullanıcılar, hesaplarına giriş yaparken şifrelerini unuttukları durumda e-posta veya telefon numarası üzerinden şifrelerini sıfırlayabilirler; bu da hesap güvenliğini ve erişim kolaylığını arttırır.
+### ğŸ” Arama ve SÄ±ralama
+5. **Filtreleme: Yemek Ã§eÅŸidine gÃ¶re (dÃ¼rÃ¼m,pizza vs) :** KullanÄ±cÄ±larÄ±n, platformda bulunan restoranlarÄ± ve yemekleri istedikleri yemek Ã§eÅŸidine gÃ¶re filtreleyerek aradÄ±klarÄ± Ã¼rÃ¼nlere hÄ±zlÄ± ve kolay eriÅŸmelerini saÄŸlar. BÃ¶ylece kullanÄ±cÄ±lar, tercihlerine en uygun yemek tÃ¼rlerini kolayca bulabilirler.
 
-### ?? Arama ve Sıralama
+6. **Filtreleme: minimum sepeat tutarÄ±na gÃ¶re :** KullanÄ±cÄ±larÄ±n sipariÅŸ verebilecekleri minimum sepet tutarÄ±na gÃ¶re restoranlarÄ± filtrelemesini saÄŸlar; bÃ¶ylece kullanÄ±cÄ±lar bÃ¼tÃ§elerine ve ihtiyaÃ§larÄ±na en uygun restoranlarÄ± kolayca bulabilirler.
+7. **Filtreleme: Restorant puanÄ±na gÃ¶re :** KullanÄ±cÄ±larÄ±n restoranlarÄ±, diÄŸer kullanÄ±cÄ±lar tarafÄ±ndan verilen puanlara gÃ¶re filtreleyebilmesini saÄŸlar; bÃ¶ylece yÃ¼ksek puanlÄ± restoranlar daha Ã¶ne Ã§Ä±karÄ±larak kullanÄ±cÄ±larÄ±n seÃ§imlerini yapmalarÄ± kolaylaÅŸtÄ±rÄ±lÄ±r.
+8. **Filtreleme: Ortalama varÄ±ÅŸ sÃ¼resi veya Ã¼rÃ¼n hazÄ±rlama sÃ¼resi :** KullanÄ±cÄ±larÄ±n restoranlarÄ± ortalama teslimat veya Ã¼rÃ¼n hazÄ±rlama sÃ¼relerine gÃ¶re filtreleyebilmelerini saÄŸlar; bu Ã¶zellik sayesinde kullanÄ±cÄ±lar sipariÅŸlerini daha hÄ±zlÄ± teslim eden restoranlarÄ± tercih edebilirler.
+9. **SÄ±ralama: teslimat sÃ¼resi, mesafe , restoran puanÄ± :** KullanÄ±cÄ±larÄ±n restoranlarÄ± teslimat sÃ¼resi, mesafe veya kullanÄ±cÄ± puanlarÄ±na gÃ¶re sÄ±ralamasÄ±nÄ± saÄŸlar; bÃ¶ylece kullanÄ±cÄ±lar en iyi restoranÄ± tercih ederken kendi Ã¶nceliklerine uygun seÃ§imleri hÄ±zlÄ±ca yapabilirler.
 
-5. **Filtreleme: Yemek çeşidine göre (dürüm,pizza vs) :** Kullanıcıların, platformda bulunan restoranları ve yemekleri istedikleri yemek çeşidine göre filtreleyerek aradıkları ürünlere hızlı ve kolay erişmelerini sağlar. Böylece kullanıcılar, tercihlerine en uygun yemek türlerini kolayca bulabilirler.
+### ğŸ”” Bildirimler
+10. **Restorant favori ekleme :** KullanÄ±cÄ±larÄ±n sevdikleri restorantÄ± favorilerine eklemeleri saÄŸlanÄ±r bÃ¶ylece tekrar sipariÅŸ etmek istediklerinde kolayca aynÄ± restorantÄ± bulmalarÄ±na olanak tanÄ±r.
 
-6. **Filtreleme: minimum sepet tutarına göre :** Kullanıcıların sipariş verebilecekleri minimum sepet tutarına göre restoranları filtrelemesini sağlar; böylece kullanıcılar bütçelerine ve ihtiyaçlarına en uygun restoranları kolayca bulabilirler.
-7. **Filtreleme: Restorant puanına göre :** Kullanıcıların restoranları, diğer kullanıcılar tarafından verilen puanlara göre filtreleyebilmesini sağlar; böylece yüksek puanlı restoranlar daha öne çıkarılarak kullanıcıların seçimlerini yapmaları kolaylaştırılır.
-8. **Filtreleme: Ortalama varış süresi veya ürün hazırlama süresi :** Kullanıcıların restoranları ortalama teslimat veya ürün hazırlama sürelerine göre filtreleyebilmelerini sağlar; bu özellik sayesinde kullanıcılar siparişlerini daha hızlı teslim eden restoranları tercih edebilirler.
-9. **Sıralama: teslimat süresi, mesafe , restoran puanı :** Kullanıcıların restoranları teslimat süresi, mesafe veya kullanıcı puanlarına göre sıralamasını sağlar; böylece kullanıcılar en iyi restoranı tercih ederken kendi önceliklerine uygun seçimleri hızlıca yapabilirler.
+11. **Yemek tÃ¼rÃ¼ favori ekleme :** KullanÄ±cÄ±larÄ±n sevdikleri yemek tÃ¼rÃ¼nÃ¼ favorilerine eklemeleri saÄŸlanÄ±r bÃ¶ylece o yemek tÃ¼rÃ¼ne Ã¶zgÃ¼ oluÅŸan indirimlerden anÄ±nda haberdar olma ÅŸanslarÄ± olur. 
+12. **Ä°ndirim olduÄŸunda bildirim gÃ¶nderme :** KullanÄ±cÄ±larÄ±n kendilerine  Ã¶zel oluÅŸan indirimlerden anÄ±nda haberdar edilmelerini saÄŸlar; bÃ¶ylece kullanÄ±cÄ±lar sevdikleri restoranlarÄ±n fÄ±rsatlarÄ±nÄ± kaÃ§Ä±rmazlar.
+13. **Mevcut kampanyalarÄ± gÃ¶sterme :** Platform Ã¼zerinde aktif olan kampanya ve promosyonlarÄ±n kullanÄ±cÄ±ya aÃ§Ä±kÃ§a gÃ¶sterilmesini saÄŸlar; kullanÄ±cÄ±lar bu kampanyalarÄ± gÃ¶rerek daha ekonomik sipariÅŸler yapabilir ve kampanyalardan en iyi ÅŸekilde faydalanabilirler.
 
-### ?? Bildirimler
 
-10. **Restorant favori ekleme :** Kullanıcıların sevdikleri restorantı favorilerine eklemeleri sağlanır böylece tekrar sipariş etmek istediklerinde kolayca aynı restorantı bulmalarına olanak tanır.
 
-11. **Yemek türü favori ekleme :** Kullanıcıların sevdikleri yemek türünü favorilerine eklemeleri sağlanır böylece o yemek türüne özgü oluşan indirimlerden anında haberdar olma şansları olur.
-12. **İndirim olduğunda bildirim gönderme :** Kullanıcıların kendilerine özel oluşan indirimlerden anında haberdar edilmelerini sağlar; böylece kullanıcılar sevdikleri restoranların fırsatlarını kaçırmazlar.
-13. **Mevcut kampanyaları gösterme :** Platform üzerinde aktif olan kampanya ve promosyonların kullanıcıya açıkça gösterilmesini sağlar; kullanıcılar bu kampanyaları görerek daha ekonomik siparişler yapabilir ve kampanyalardan en iyi şekilde faydalanabilirler.
+

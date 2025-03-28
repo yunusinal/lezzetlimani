@@ -1,22 +1,21 @@
-### ?? Kullanıcı Bilgileri
+### ğŸ‘¤KullanÄ±cÄ± Bilgileri
+1. **Adres Ekleme :** KullanÄ±cÄ±larÄ±n yemek sipariÅŸi teslimatÄ± iÃ§in yeni adres ekleyebilmesini saÄŸlar; adres baÅŸlÄ±ÄŸÄ± (Ev, Ä°ÅŸ vb.), tam adres bilgileri girilebilir.
 
-1. **Adres Ekleme :** Kullanıcıların yemek siparişi teslimatı için yeni adres ekleyebilmesini sağlar; adres başlığı (Ev, İş vb.), tam adres bilgileri girilebilir.
+2. **Adres KayÄ±t etme :** KullanÄ±cÄ±larÄ±n girdikleri adresleri sistemde kayÄ±tlÄ± tutmasÄ±na imkan tanÄ±r; bÃ¶ylelikle her sipariÅŸte adres bilgilerini tekrar girmek zorunda kalmadan hÄ±zlÄ±ca seÃ§im yapabilirler.
+3. **Adres Ã‡Ä±karma :**  KullanÄ±cÄ±lar artÄ±k kullanmadÄ±klarÄ± veya yanlÄ±ÅŸ kaydedilmiÅŸ adresleri hesaplarÄ±ndan silebilirler; bÃ¶ylece adres bilgilerini gÃ¼ncel tutarak yanlÄ±ÅŸ teslimat ihtimalini ortadan kaldÄ±rÄ±rlar. 
+4. **KiÅŸisel Bilgiler(Telefon,Mail) Ekleme :** KullanÄ±cÄ±lar, telefon numarasÄ± ve e-posta adreslerini profillerine ekleyebilirler; bu bilgiler sipariÅŸ bildirimleri, teslimat gÃ¼ncellemeleri ve hesap gÃ¼venliÄŸi iÃ§in kullanÄ±lacaktÄ±r.
+### ğŸ›’ SipariÅŸ SÃ¼reci
+5. **Sepete ekleme :** KullanÄ±cÄ±larÄ±n restoranlarÄ±n menÃ¼lerinden seÃ§tikleri Ã¼rÃ¼nleri sepete ekleyebilmesini saÄŸlar; kullanÄ±cÄ±lar, sepete ekledikleri Ã¼rÃ¼nlerin miktarÄ±nÄ± artÄ±rÄ±p azaltabilirler veya sepeti yeniden dÃ¼zenleyebilirler. 
 
-2. **Adres Kayıt etme :** Kullanıcıların girdikleri adresleri sistemde kayıtlı tutmasına imkan tanır; böylelikle her siparişte adres bilgilerini tekrar girmek zorunda kalmadan hızlıca seçim yapabilirler.
-3. **Adres Çıkarma :** Kullanıcılar artık kullanmadıkları veya yanlış kaydedilmiş adresleri hesaplarından silebilirler; böylece adres bilgilerini güncel tutarak yanlış teslimat ihtimalini ortadan kaldırırlar.
-4. **Kişisel Bilgiler(Telefon,Mail) Ekleme :** Kullanıcılar, telefon numarası ve e-posta adreslerini profillerine ekleyebilirler; bu bilgiler sipariş bildirimleri, teslimat güncellemeleri ve hesap güvenliği için kullanılacaktır.
+6. **Sepetten Ã‡Ä±kart :** KullanÄ±cÄ±lar sepette bulunan ancak vazgeÃ§tikleri Ã¼rÃ¼nleri Ã§Ä±kartabilir veya sipariÅŸ miktarlarÄ±nÄ± azaltabilir; bu, sipariÅŸi sonlandÄ±rmadan Ã¶nce kullanÄ±cÄ±larÄ±n sipariÅŸ iÃ§eriklerini kontrol etmelerini saÄŸlar. 
+7. **SipariÅŸe Ã¶zel not ekleme :** KullanÄ±cÄ±larÄ±n sipariÅŸleriyle ilgili Ã¶zel taleplerini restoranlara iletmesine imkÃ¢n tanÄ±r; Ã¶rneÄŸin "yemeÄŸe sos eklenmesin" gibi isteklerini kolayca iletebilirler.
+8. **SipariÅŸi zamanÄ± planlama :** KullanÄ±cÄ±lar, sipariÅŸlerinin teslim edilmesini istedikleri Ã¶zel tarih ve saati belirleyebilirler; bu sayede yemeklerini belirli bir zamanda teslim alarak zaman yÃ¶netimini kolaylaÅŸtÄ±rabilirler. 
+9. **TamamlayÄ±cÄ± Ã¼rÃ¼n Ã¶nerileri :** KullanÄ±cÄ±larÄ±n sepetine ekledikleri Ã¼rÃ¼nlere baÄŸlÄ± olarak restoranlarÄ±n sunduÄŸu diÄŸer uyumlu Ã¼rÃ¼nler Ã¶nerilir; Ã¶rneÄŸin pizza sipariÅŸinde iÃ§ecek veya tatlÄ± gibi ek Ã¼rÃ¼nler kullanÄ±cÄ±ya Ã¶nerilerek sipariÅŸ deneyimi zenginleÅŸtirilir.
 
-### ?? Sipariş Süreci
+### ğŸ’³ Ã–deme SeÃ§enekleri
+10. **Kredi kartÄ±, nakit, kapÄ±da POS ile Ã¶deme :** KullanÄ±cÄ±larÄ±n sipariÅŸleri iÃ§in farklÄ± Ã¶deme yÃ¶ntemleri arasÄ±ndan seÃ§im yapmasÄ±nÄ± saÄŸlar; kullanÄ±cÄ±lar kredi veya banka kartlarÄ±yla online Ã¶deme yapabilir veya sipariÅŸi teslim alÄ±rken nakit ya da kapÄ±da POS ile Ã¶deyebilirler. 
 
-5. **Sepete ekleme :** Kullanıcıların restoranların menülerinden seçtikleri ürünleri sepete ekleyebilmesini sağlar; kullanıcılar, sepete ekledikleri ürünlerin miktarını artırıp azaltabilirler veya sepeti yeniden düzenleyebilirler.
+11. **Kupon kodu kullanma :** KullanÄ±cÄ±larÄ±n platformun sunduÄŸu kampanya ve indirim kuponlarÄ±nÄ± sipariÅŸ aÅŸamasÄ±nda girerek indirimlerden faydalanmalarÄ±na olanak tanÄ±r; bÃ¶ylece kullanÄ±cÄ±lar daha ekonomik sipariÅŸler verebilir ve platforma olan baÄŸlÄ±lÄ±klarÄ± artar. 
 
-6. **Sepetten Çıkart :** Kullanıcılar sepette bulunan ancak vazgeçtikleri ürünleri çıkartabilir veya sipariş miktarlarını azaltabilir; bu, siparişi sonlandırmadan önce kullanıcıların sipariş içeriklerini kontrol etmelerini sağlar.
-7. **Siparişe özel not ekleme :** Kullanıcıların siparişleriyle ilgili özel taleplerini restoranlara iletmesine imkân tanır; örneğin "yemeğe sos eklenmesin" gibi isteklerini kolayca iletebilirler.
-8. **Siparişi zamanı planlama :** Kullanıcılar, siparişlerinin teslim edilmesini istedikleri özel tarih ve saati belirleyebilirler; bu sayede yemeklerini belirli bir zamanda teslim alarak zaman yönetimini kolaylaştırabilirler.
-9. **Tamamlayıcı ürün önerileri :** Kullanıcıların sepetine ekledikleri ürünlere bağlı olarak restoranların sunduğu diğer uyumlu ürünler önerilir; örneğin pizza siparişinde içecek veya tatlı gibi ek ürünler kullanıcıya önerilerek sipariş deneyimi zenginleştirilir.
 
-### ?? Ödeme Seçenekleri
 
-10. **Kredi kartı, nakit, kapıda POS ile ödeme :** Kullanıcıların siparişleri için farklı ödeme yöntemleri arasından seçim yapmasını sağlar; kullanıcılar kredi veya banka kartlarıyla online ödeme yapabilir veya siparişi teslim alırken nakit ya da kapıda POS ile ödeyebilirler.
-
-11. **Kupon kodu kullanma :** Kullanıcıların platformun sunduğu kampanya ve indirim kuponlarını sipariş aşamasında girerek indirimlerden faydalanmalarına olanak tanır; böylece kullanıcılar daha ekonomik siparişler verebilir ve platforma olan bağlılıkları artar.
