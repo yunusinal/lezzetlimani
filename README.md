@@ -14,7 +14,10 @@ Kredi kartı, nakit ve kapıda POS ile güvenli ödeme seçenekleri sunulur. Pla
 
 ### 1. [Gereksinim Analizi](/GereksinimAnalizi/GereksinimAnalizi.md)
 
-.   
+### 2. [Durum Diyagramı](/Durum-Diyagrami.md)
+
+### 3. [Durum Senaryoları](/Durum-Senaryolari.md)   
+
 .  
 .
 
