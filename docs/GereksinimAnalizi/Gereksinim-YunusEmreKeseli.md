@@ -1,4 +1,4 @@
-### ??Kullanýcý Ýþlemleri
+### ?? Kullanýcý Ýþlemleri
 
 1. **Kayýt Olma :** Kullanýcýlarýn platformda yeni bir hesap oluþturmasýný saðlar; isim, e-posta, telefon numarasý ve þifre gibi temel bilgileri girerek hýzlý ve güvenli bir þekilde üye olabilirler.
 

@@ -1,3 +1,3 @@
-# Durum Diyagramı
+# Durum DiyagramI
 
-!["Durum Diyagramý"](/resources/usecase_diagram.svg)
+!["Durum Diyagram�"](/resources/usecase_diagram.svg)
