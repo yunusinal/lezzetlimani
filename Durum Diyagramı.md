@@ -1,3 +1,3 @@
 # Durum Diyagramý
 
-!["Durum Diyagramý"](/resources/durum_diyagramý.svg)
+!["Durum Diyagramý"](/resources/usecase_diagram.svg)
