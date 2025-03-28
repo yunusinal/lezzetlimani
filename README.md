@@ -1,6 +1,6 @@
 # ??? LezzetLimaný
 
-## ?? Proje Hakkýnda
+##  Proje Hakkýnda
 
 LezzetLimaný, kullanýcýlarýn yerel restoranlardan hýzlý ve kolay yemek sipariþ edebileceði, sipariþlerini takip edebileceði bir web uygulamasýdýr. Kullanýcýlar, restoran ve yemekleri tür, puan, fiyat ve teslimat süresine göre filtreleyebilir, favorilerine ekleyebilir ve sipariþlerini kiþiselleþtirebilirler.  
 Kredi kartý, nakit ve kapýda POS ile güvenli ödeme seçenekleri sunulur. Platform, kullanýcýlara kampanya ve indirim bildirimleri gönderir ve restoranlarla kullanýcýlar arasýnda sipariþ sürecini hýzlý ve güvenli hale getirir.
