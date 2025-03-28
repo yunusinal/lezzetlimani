@@ -17,7 +17,7 @@ Kredi kartý, nakit ve kapýda POS ile güvenli ödeme seçenekleri sunulur. Platform
 
 ### 2. [Durum Diyagramý](/docs/Durum%20Diyagramý.md)
 
-### 3. [Durum Senaryolarý]
+### 3. [Durum Senaryolarý](/docs/Durum%20Senaryolarý.md)
 
 .  
 .  
