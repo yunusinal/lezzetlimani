@@ -1,30 +1,34 @@
-# ğŸ½ï¸ LezzetLimanÄ± 
+# ??? LezzetLimanı
 
-## â„¹ï¸ Proje HakkÄ±nda
-LezzetLimanÄ±, kullanÄ±cÄ±larÄ±n yerel restoranlardan hÄ±zlÄ± ve kolay yemek sipariÅŸ edebileceÄŸi, sipariÅŸlerini takip edebileceÄŸi bir web uygulamasÄ±dÄ±r. KullanÄ±cÄ±lar, restoran ve yemekleri tÃ¼r, puan, fiyat ve teslimat sÃ¼resine gÃ¶re filtreleyebilir, favorilerine ekleyebilir ve sipariÅŸlerini kiÅŸiselleÅŸtirebilirler.   
-Kredi kartÄ±, nakit ve kapÄ±da POS ile gÃ¼venli Ã¶deme seÃ§enekleri sunulur. Platform, kullanÄ±cÄ±lara kampanya ve indirim bildirimleri gÃ¶nderir ve restoranlarla kullanÄ±cÄ±lar arasÄ±nda sipariÅŸ sÃ¼recini hÄ±zlÄ± ve gÃ¼venli hale getirir.
+## ?? Proje Hakkında
 
-**Projenin Kategorisi:** Yemek SipariÅŸ ve Teslimat Platformu
+LezzetLimanı, kullanıcıların yerel restoranlardan hızlı ve kolay yemek sipariş edebileceği, siparişlerini takip edebileceği bir web uygulamasıdır. Kullanıcılar, restoran ve yemekleri tür, puan, fiyat ve teslimat süresine göre filtreleyebilir, favorilerine ekleyebilir ve siparişlerini kişiselleştirebilirler.  
+Kredi kartı, nakit ve kapıda POS ile güvenli ödeme seçenekleri sunulur. Platform, kullanıcılara kampanya ve indirim bildirimleri gönderir ve restoranlarla kullanıcılar arasında sipariş sürecini hızlı ve güvenli hale getirir.
+
+**Projenin Kategorisi:** Yemek Sipariş ve Teslimat Platformu
 
 **Referans Uygulama :** [yemeksepeti.com](https://www.yemeksepeti.com/restaurants/new?lng=30.58243047530587&lat=37.80179700249864&vertical=restaurants)
 
-**Grup AdÄ±:** YunusVEYunus    
+**Grup Adı:** YunusVEYunus
 
-**Proje Ekibi:** Yunus Ä°NAL , Yunus Emre KESELÄ° 
+**Proje Ekibi:** Yunus İNAL , Yunus Emre KESELİ
 
-### 1. [Gereksinim Analizi](/GereksinimAnalizi/GereksinimAnalizi.md)
+### 1. [Gereksinim Analizi](/docs/GereksinimAnalizi/GereksinimAnalizi.md)
 
-.   
+### 2. [Durum Diyagramı](/docs/Durum%20Diyagramı.md)
+
+### 3. [Durum Senaryoları]
+
+.  
 .  
 .
 
+## ?? Teknik Altyapı
 
-## âš™ï¸ Teknik AltyapÄ±
-- **Frontend:** React.js, Next.js, Tailwind CSS  
-- **Backend:** Go, Pyhton, Node.js(Express.js) 
-- **VeritabanÄ±:** PostgreSQL
+- **Frontend:** React.js, Next.js, Tailwind CSS
+- **Backend:** Go, Pyhton, Node.js(Express.js)
+- **Veritabanı:** PostgreSQL
 - **Cache:** Redis
-- **Message Queuing:** Apache Kafka   
+- **Message Queuing:** Apache Kafka
 - **Architecture:** Microservices
 - **Archicteruel Desing:** RESTful API
-
