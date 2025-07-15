@@ -1,0 +1,220 @@
+http:
+  services:
+    auth-service:
+      loadBalancer:
+        servers:
+          - url: "http://auth-service:8080"
+    user-service:
+      loadBalancer:
+        servers:
+          - url: "http://user-service:8081"
+    address-service:
+      loadBalancer:
+        servers:
+          - url: "http://address-service:8083"
+    restaurant-service:
+      loadBalancer:
+        servers:
+          - url: "http://restaurant-service:8084"
+    meal-service:
+      loadBalancer:
+        servers:
+          - url: "http://meal-service:8085"
+    cart-service:
+      loadBalancer:
+        servers:
+          - url: "http://cart-service:8086"
+    notification-service:
+      loadBalancer:
+        servers:
+          - url: "http://notification-service:8082"
+  middlewares:
+    common-headers:
+      headers:
+        accessControlAllowOriginListRegex:
+          - "https://lezzetlimani.*\\.vercel\\.app"
+        accessControlAllowOriginList:
+          - "https://lezzetlimani.site"
+          - "http://localhost:3000"
+          - "https://lezzetlimani-lime.vercel.app"
+        accessControlAllowMethods: [GET, POST, PUT, DELETE, OPTIONS, PATCH]
+        accessControlAllowHeaders:
+          - Content-Type
+          - Authorization
+          - X-Requested-With
+          - Accept
+          - Origin
+          - Cache-Control
+          - Pragma
+        accessControlExposeHeaders:
+          [Content-Type, Content-Length, Authorization]
+        accessControlAllowCredentials: true
+        accessControlMaxAge: 86400
+        addVaryHeader: true
+        # Güvenlik
+        stsSeconds: 31536000
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        frameDeny: true
+        contentTypeNosniff: true
+        browserXssFilter: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+
+    # HTTP → HTTPS yönlendirme
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  routers:
+    # OPTIONS preflight requests için özel router - tüm servisler için
+    preflight-auth:
+      rule: "Host(`lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/auth`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+
+    preflight-users:
+      rule: "Host(`lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/users`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+
+    preflight-addresses:
+      rule: "Host(`lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/addresses`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+
+    preflight-restaurants:
+      rule: "Host(`lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/restaurants`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+
+    preflight-meals:
+      rule: "Host(`lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/meals`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+
+    preflight-carts:
+      rule: "Host(`lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/carts`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+
+    preflight-notification:
+      rule: "Host(`lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/notification`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+
+    # HTTP → HTTPS yönlendirme
+    redirect-http:
+      rule: "HostRegexp(`{any:.*}`)"
+      entryPoints: [web]
+      service: noop@internal
+      middlewares:
+        - https-redirect
+
+    auth:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/auth`)"
+      entryPoints: [websecure]
+      service: auth-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+    users:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/users`)"
+      entryPoints: [websecure]
+      service: user-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+    addresses:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/addresses`)"
+      entryPoints: [websecure]
+      service: address-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+    restaurants:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/restaurants`)"
+      entryPoints: [websecure]
+      service: restaurant-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+    meals:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/meals`)"
+      entryPoints: [websecure]
+      service: meal-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+    carts:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/carts`)"
+      entryPoints: [websecure]
+      service: cart-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+    notification:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/notification`)"
+      entryPoints: [websecure]
+      service: notification-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+    
+    # HTTP routers for testing
+    auth-http:
+      rule: "Host(`lezzetlimani.site`) && PathPrefix(`/auth`)"
+      entryPoints: [web]
+      service: auth-service
+      middlewares:
+        - https-redirect
+
+    preflight-auth-www:
+      rule: "Host(`www.lezzetlimani.site`) && Method(`OPTIONS`) && PathPrefix(`/auth`)"
+      entryPoints: [web, websecure]
+      priority: 30000
+      service: noop@internal
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
+
+    auth-www:
+      rule: "Host(`www.lezzetlimani.site`) && PathPrefix(`/auth`)"
+      entryPoints: [websecure]
+      service: auth-service
+      middlewares:
+        - common-headers
+      tls:
+        certResolver: letsencrypt
