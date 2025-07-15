@@ -1,85 +1,46 @@
-import { useQuery } from '@tanstack/react-query';
-import { BadgePercent } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { toast } from 'sonner';
-import { getCampaigns } from '@/services/campaignService';
-import CampaignCard from '@/components/campaign/CampaignCard';
+import { useEffect, useState } from "react";
+import { getCampaigns } from "../api/restaurants/restaurant";
+import type { Campaign } from "../api/restaurants/restaurant";
 
-const Campaigns = () => {
-  // Fetch campaigns using React Query
-  const { data: campaigns = [], isLoading, error } = useQuery({
-    queryKey: ['campaigns'],
-    queryFn: getCampaigns
-  });
-  
-  const saveCampaign = (id: string) => {
-    toast.success("Kampanya kaydedildi! Favoriler sayfasından ulaşabilirsiniz.");
-  };
+export default function CampaignsPage() {
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setLoading(true);
+    getCampaigns()
+      .then(setCampaigns)
+      .catch(() => setError("Kampanyalar yüklenemedi."))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold flex items-center">
-            <BadgePercent className="mr-2 text-brand-red h-8 w-8" />
-            Kampanyalar
-          </h1>
-        </div>
-        
-        <Tabs defaultValue="all" className="mb-8">
-          
-          <TabsContent value="all" className="mt-6">
-            {isLoading ? (
-              <div className="text-center py-10">Kampanyalar yükleniyor...</div>
-            ) : error ? (
-              <div className="text-center py-10 text-red-500">
-                Kampanyalar yüklenirken bir hata oluştu.
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Mevcut Kampanyalar</h1>
+      {loading ? (
+        <div>Yükleniyor...</div>
+      ) : error ? (
+        <div className="text-red-600">{error}</div>
+      ) : campaigns.length === 0 ? (
+        <div>Şu anda aktif kampanya yok.</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {campaigns.map((c) => (
+            <div
+              key={c.id}
+              className="border rounded-xl p-4 shadow bg-yellow-50"
+            >
+              <h2 className="text-lg font-semibold mb-1">{c.title}</h2>
+              <p className="mb-2 text-gray-700">{c.description}</p>
+              <div className="text-xs text-gray-500">
+                {new Date(c.start_date).toLocaleDateString()} -{" "}
+                {new Date(c.end_date).toLocaleDateString()}
               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {campaigns.map(campaign => (
-                  <CampaignCard 
-                    key={campaign.id} 
-                    campaign={campaign} 
-                    onSave={() => saveCampaign(campaign.id)}
-                  />
-                ))}
-              </div>
-            )}
-          </TabsContent>
-          
-        </Tabs>
-        
-        <Separator className="my-8" />
-        
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Sık Sorulan Sorular</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-medium">Kampanyalardan nasıl yararlanabilirim?</h3>
-              <p className="text-gray-600">Kampanya detayında belirtilen koşullara uygun sipariş verip kampnya kodunu girmeniz yeterlidir.</p>
             </div>
-            <div>
-              <h3 className="font-medium">Birden fazla kampanyadan aynı anda yararlanabilir miyim?</h3>
-              <p className="text-gray-600">Hayır, bir siparişte yalnızca bir kampanyadan yararlanabilirsiniz.</p>
-            </div>
-            <div>
-              <h3 className="font-medium">Kampanya süreleri ne kadardır?</h3>
-              <p className="text-gray-600">Her kampanyanın süresi detaylarında belirtilmiştir. Kampanyalar sınırlı süreli olabilir.</p>
-            </div>
-          </div>
+          ))}
         </div>
-      </main>
-      
-      <Footer />
+      )}
     </div>
   );
-};
-
-export default Campaigns;
+}
