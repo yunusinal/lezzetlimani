@@ -1,0 +1,252 @@
+services:
+  gateway:
+    image: traefik:v2.11
+    container_name: gateway
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./traefik/acme.json:/acme.json
+    networks: 
+      - backend
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    restart: unless-stopped
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
+    networks: [backend]
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_LOG_RETENTION_HOURS: 168
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    networks: [backend]
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [backend]
+
+  auth-db:
+    image: postgres:15
+    container_name: auth-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auths
+    volumes:
+      - auth-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [backend]
+
+  auth-service:
+    build: { context: ./auth, dockerfile: Dockerfile }
+    container_name: auth-service
+    restart: unless-stopped
+    env_file: [./auth/.env]
+    depends_on:
+      kafka: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      auth-db: { condition: service_healthy }
+    networks: [backend]
+
+  user-db:
+    image: postgres:15
+    container_name: user-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: users
+    volumes:
+      - user-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [backend]
+
+  user-service:
+    build: { context: ./user, dockerfile: Dockerfile }
+    container_name: user-service
+    restart: unless-stopped
+    env_file: [./user/.env]
+    depends_on:
+      kafka: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      user-db: { condition: service_healthy }
+    networks: [backend]
+
+  address-db:
+    image: postgres:15
+    container_name: address-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: addresses
+    volumes:
+      - address-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [backend]
+
+  address-service:
+    build: { context: ./address, dockerfile: Dockerfile }
+    container_name: address-service
+    restart: unless-stopped
+    env_file: [./address/.env]
+    depends_on:
+      address-db: { condition: service_healthy }
+    networks: [backend]
+
+  restaurant-db:
+    image: postgres:15
+    container_name: restaurant-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: restaurants
+    volumes:
+      - restaurant-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [backend]
+
+  restaurant-service:
+    build: { context: ./restaurant, dockerfile: Dockerfile }
+    container_name: restaurant-service
+    restart: unless-stopped
+    env_file: [./restaurant/.env]
+    depends_on:
+      restaurant-db: { condition: service_healthy }
+    networks: [backend]
+
+  notification-service:
+    build: { context: ./notification, dockerfile: Dockerfile }
+    container_name: notification-service
+    restart: unless-stopped
+    env_file: [./notification/.env]
+    depends_on:
+      kafka: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    networks: [backend]
+
+  meal-db:
+    image: postgres:15
+    container_name: meal-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: meals
+    volumes:
+      - meal-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+    networks: [backend]
+
+  meal-service:
+    build: { context: ./meal, dockerfile: Dockerfile }
+    container_name: meal-service
+    restart: unless-stopped
+    env_file: [./meal/.env]
+    depends_on:
+      meal-db: { condition: service_healthy }
+    networks: [backend]
+
+  cart-db:
+    image: postgres:15
+    container_name: cart-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: carts
+    volumes:
+      - cart-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+    networks: [backend]
+
+  cart-service:
+    build: { context: ./cart, dockerfile: Dockerfile }
+    container_name: cart-service
+    restart: unless-stopped
+    env_file: [./cart/.env]
+    depends_on:
+      cart-db: { condition: service_healthy }
+    networks: [backend]
+
+volumes:
+  zookeeper-data:
+  zookeeper-logs:
+  kafka-data:
+  redis-data:
+  auth-db:
+  user-db:
+  address-db:
+  restaurant-db:
+  meal-db:
+  cart-db:
+
+networks:
+  backend:
