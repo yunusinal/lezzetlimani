@@ -19,11 +19,9 @@ Kredi kartı, nakit ve kapıda POS ile güvenli ödeme seçenekleri sunulur. Pla
 
 ### 3. [Durum Senaryoları](./docs/Durum-Senaryolari.md)
 
-### 4. [Front End ](/frontend/frontREADME.md)
+### 4. [Front End ](/docs/frontREADME.md)
 
-### 5. [API Dökümantasyonu](/docs/api/index.md)
-
-.
+### 5. [Back End] ()
 
 ## ⚙️ Teknik Altyapı
 
