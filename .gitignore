@@ -1,1 +1,60 @@
+# macOS
 *.DS_Store
+
+# Go
+/bin/
+/build/
+/dist/
+/vendor/
+/coverage.out
+
+# Go modules (genellikle takip edilir, ama bazen ignore edilir)
+# go.sum
+go.work
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.egg-info/
+
+# Node.js
+node_modules/
+.npm/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Docker
+*.env
+.env.*
+docker-compose.override.yml
+
+# Test/coverage
+coverage/
+coverage-report/
+*.cover
+*.lcov
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# Traefik/SSL
+acme.json
+
+# System
+.DS_Store
