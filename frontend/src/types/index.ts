@@ -1,176 +1,146 @@
-export interface User {
-  id: string;
-  name: string;
+export interface RegisterDTO {
   email: string;
-  avatar?: string;
-  addresses: Address[];
-  orders?: Order[];
-  phone: string;
   password: string;
 }
 
-export interface Address {
+export interface RegisterCompleteDTO {
   id: string;
-  title: string;
-  fullAddress: string;
-  city: string;
-  district: string;
-  postalCode: string;
-  isDefault: boolean;
-  phoneNumber?: string;
+  full_name: string;
+  born_date?: string;
+  gender?: string;
+  phone?: string;
 }
 
-export interface Restaurant {
-  id: string;
-  name: string;
-  logo: string;
-  coverImage: string;
-  cuisineType: string[];
-  rating: number;
-  reviewCount: number;
-  deliveryTime: number;
-  deliveryFee: number;
-  minOrderAmount: number;
-  distance: number;
-  priceRange: 1 | 2 | 3 | 4;
-  isPromoted: boolean;
-  isFavorite: boolean;
-  isNew?: boolean;
-  discount?: {
-    type: 'percentage' | 'fixed';
-    value: number;
-    minOrderAmount?: number;
-  };
-  categories: MenuCategory[];
-  description: string;
-  image: string;
-  ratingCount: number;
-  cuisine: string[];
+export interface LoginDTO {
+  email: string;
+  password: string;
+}
+
+export interface UserUpdateSchema {
+  full_name?: string;
+  born_date?: string;
+  gender?: string;
+  phone?: string;
+}
+
+export interface AddressCreateDTO {
+  title: string;
   address: string;
-  menu: MenuItem[];
-}
-
-export interface MenuCategory {
-  id: string;
-  name: string;
-  items: MenuItem[];
-}
-
-export interface MenuItem {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  discountedPrice?: number;
-  image: string;
-  category: string;
-  isPopular?: boolean;
-  customizationOptions?: CustomizationOption[];
-}
-
-export interface CustomizationOption {
-  id: string;
-  name: string;
-  required: boolean;
-  multiple: boolean;
-  min?: number;
-  max?: number;
-  choices: {
-    id: string;
-    name: string;
-    price: number;
-  }[];
-}
-
-export interface CartItem {
-  id: string;
-  menuItem: MenuItem;
-  quantity: number;
-  specialInstructions?: string;
-  customizations?: {
-    optionId: string;
-    choiceIds: string[];
-  }[];
-  totalPrice: number;
-  restaurantId: string;
-  restaurantName: string;
-}
-
-export interface Cart {
-  restaurantId: string;
-  restaurantName: string;
-  items: CartItem[];
-  subtotal: number;
-  deliveryFee: number;
-  tax: number;
-  total: number;
-  couponCode?: string;
-  discount?: number;
-}
-
-export interface OrderStatus {
-  id: string;
-  status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'on_the_way' | 'delivered' | 'cancelled';
-  timestamp: Date;
-}
-
-export interface Order extends Cart {
-  id: string;
-  userId: string;
-  addressId: string;
-  address: Address;
-  orderDate: Date;
-  paymentMethod: string;
-  statusHistory: OrderStatus[];
-  currentStatus: OrderStatus['status'];
-  estimatedDeliveryTime?: Date;
-}
-
-export interface CuisineType {
-  id: string;
-  name: string;
-  image: string;
-}
-
-export interface CampaignBanner {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  link: string;
-  backgroundColor?: string;
-}
-
-export interface Campaign {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  backgroundColor?: string;
-  endDate: string;
-  link: string;
-  tags: string[];
-  code?: string;
-  minOrderAmount?: number;
-  discountType?: 'percentage' | 'fixed';
-  discountValue?: number;
-  restaurants: string[];
-}
-
-export interface DeliveryAddress {
-  fullAddress: string;
-  district: string;
   city: string;
-  postalCode: string;
+  district: string;
+  full_address: string;
+  zip_code: string;
+  apartment?: string;
+  floor?: string;
+  door_number?: string;
+  latitude?: number;
+  longitude?: number;
+  is_default: boolean;
 }
 
-export interface OrderItem extends CartItem {
-  name: string;
-  price: number;
-}
+export interface AddressUpdateDTO extends Partial<AddressCreateDTO> {}
 
-export interface Category {
+export interface AddressResponseDTO extends AddressCreateDTO {
+  id: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
+export interface RestaurantResponseDTO {
   id: string;
   name: string;
-  items: MenuItem[];
+  description: string;
+  logo: string;
+  address: AddressDTO;
+  phone_number: string;
+  email: string;
+  status: string;
+  opening_hours: Record<string, string>;
+  prep_time: number;
+  rating_avg: number;
+  rating_count: number;
+  delivery_fee: number;
+  min_order_price: number;
+  created_at: string;
+  updated_at: string;
 }
+
+export interface RestaurantQueryParams {
+  city?: string;
+  status?: "open" | "closed";
+  owner_id?: string;
+  sort?: string;
+  limit?: number;
+  offset?: number;
+}
+export interface AddressDTO {
+  id: string;
+  title: string;
+  city: string;
+  district: string;
+  full_address: string;
+  zip_code: string;
+}
+
+export type Meal = {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  image_url?: string;
+  restaurant_id: string;
+};
+
+export type CartItem = Meal & {
+  quantity: number;
+  note?: string;
+  schedule_date?: string;
+};
+
+export type CartItemCreate = {
+  user_id: string;
+  restaurant_id: string;
+  meal_id: string;
+  quantity: number;
+  note?: string;
+  schedule_date?: string;
+};
+
+export type CartItemResponse = {
+  id: number;
+  user_id: string;
+  restaurant_id: string;
+  meal_id: string;
+  quantity: number;
+  note?: string;
+  schedule_date?: string;
+  created_at: string;
+};
+
+export type OrderItem = {
+  meal_id: string;
+  quantity: number;
+  note?: string;
+};
+
+export type OrderCreate = {
+  user_id: string;
+  restaurant_id: string;
+  items: OrderItem[];
+  payment_method: "credit_card" | "cash" | "pos";
+  coupon_code?: string;
+};
+
+export type OrderResponse = {
+  id: number;
+  user_id: string;
+  restaurant_id: string;
+  items: OrderItem[];
+  subtotal: number;
+  discount: number;
+  total: number;
+  payment_method: string;
+  coupon_code?: string;
+  created_at: string;
+  message: string;
+};
