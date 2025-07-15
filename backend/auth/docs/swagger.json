@@ -1,0 +1,398 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Lezzet Limanı Auth Service API",
+    "description": "Authentication and authorization service for Lezzet Limanı platform. This service handles user registration with email verification, user authentication (login/logout), JWT token management, and email verification workflow.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Lezzet Limanı API Support",
+      "email": "support@lezzetlimani.com",
+      "url": "https://lezzetlimani.site"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "lezzetlimani.site",
+  "basePath": "/auth",
+  "schemes": ["https", "http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token."
+    }
+  },
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Service health check endpoints"
+    },
+    {
+      "name": "Authentication",
+      "description": "User authentication and registration operations"
+    },
+    {
+      "name": "Email Verification",
+      "description": "Email verification operations"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Health check",
+        "description": "Check if the authentication service is running and healthy",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "schema": {
+              "$ref": "#/definitions/HealthResponse"
+            }
+          },
+          "503": {
+            "description": "Service unavailable",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register a new user",
+        "description": "Creates a new user account and sends a verification email",
+        "operationId": "register",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User registration details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully, verification email sent",
+            "schema": {
+              "$ref": "#/definitions/RegisterResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "User already exists",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "User login",
+        "description": "Authenticate user credentials and return JWT tokens",
+        "operationId": "login",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User login credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Invalid credentials or unverified email",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Email not verified",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/verify-email": {
+      "post": {
+        "tags": ["Email Verification"],
+        "summary": "Verify user email",
+        "description": "Verify user email address using the token sent via email",
+        "operationId": "verifyEmail",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Email verification token",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerifyEmailRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email verified successfully, user can now login",
+            "schema": {
+              "$ref": "#/definitions/VerifyEmailResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid or expired token",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Token not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "User logout",
+        "description": "Logout user and invalidate the current JWT token",
+        "operationId": "logout",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Logout request (optional message)",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/LogoutRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout successful",
+            "schema": {
+              "$ref": "#/definitions/LogoutResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing token",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RegisterRequest": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User's email address (must be unique)",
+          "example": "john.doe@example.com",
+          "minLength": 5,
+          "maxLength": 100
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "description": "User's password (minimum 8 characters)",
+          "example": "MySecurePassword123",
+          "minLength": 8,
+          "maxLength": 100
+        }
+      }
+    },
+    "RegisterResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Success message",
+          "example": "Registration successful. Please check your email for verification."
+        }
+      }
+    },
+    "LoginRequest": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User's registered email address",
+          "example": "john.doe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "description": "User's password",
+          "example": "MySecurePassword123"
+        }
+      }
+    },
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "JWT access token for API authentication (expires in 15 minutes)"
+        },
+        "refresh_token": {
+          "type": "string",
+          "description": "JWT refresh token for obtaining new access tokens (expires in 7 days)"
+        }
+      }
+    },
+    "VerifyEmailRequest": {
+      "type": "object",
+      "required": ["token"],
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "Email verification token received via email",
+          "minLength": 32,
+          "maxLength": 256
+        }
+      }
+    },
+    "VerifyEmailResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Success message",
+          "example": "Email verified successfully"
+        },
+        "access_token": {
+          "type": "string",
+          "description": "JWT access token for immediate use after verification"
+        },
+        "refresh_token": {
+          "type": "string",
+          "description": "JWT refresh token for long-term authentication"
+        }
+      }
+    },
+    "LogoutRequest": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Optional logout message",
+          "example": "User initiated logout"
+        }
+      }
+    },
+    "LogoutResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Logout confirmation message",
+          "example": "Logout successful"
+        }
+      }
+    },
+    "HealthResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Health status message",
+          "example": "OK"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "description": "Error type or code",
+          "example": "ValidationError"
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message",
+          "example": "The provided email address is not valid"
+        },
+        "details": {
+          "type": "object",
+          "description": "Additional error details (optional)",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

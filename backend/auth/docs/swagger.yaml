@@ -1,0 +1,415 @@
+swagger: "2.0"
+info:
+  title: Lezzet Limanı Auth Service API
+  description: |
+    Authentication and authorization service for Lezzet Limanı platform.
+
+    This service handles:
+    - User registration with email verification
+    - User authentication (login/logout)
+    - JWT token management
+    - Email verification workflow
+
+    ## Authentication
+    Most endpoints require a valid JWT token in the Authorization header:
+    ```
+    Authorization: Bearer <your-jwt-token>
+    ```
+
+    ## Rate Limiting
+    API endpoints are rate-limited to prevent abuse. Please respect the limits.
+
+    ## Error Handling
+    All errors follow a consistent format with appropriate HTTP status codes.
+  version: "1.0.0"
+  contact:
+    name: Lezzet Limanı API Support
+    email: support@lezzetlimani.com
+    url: https://lezzetlimani.site
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+host: lezzetlimani.site
+basePath: /auth
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+x-cors:
+  allowedOrigins:
+    - https://lezzetlimani-lime.vercel.app
+    - https://lezzetlimani.site
+    - http://localhost:3000
+  allowedMethods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  allowedHeaders:
+    - Content-Type
+    - Authorization
+    - X-Requested-With
+    - Accept
+  allowCredentials: true
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: |
+      JWT Authorization header using the Bearer scheme.
+
+      Enter 'Bearer' [space] and then your token in the text input below.
+
+      Example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+tags:
+  - name: Health
+    description: Service health check endpoints
+  - name: Authentication
+    description: User authentication and registration operations
+  - name: Email Verification
+    description: Email verification operations
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      description: Check if the authentication service is running and healthy
+      operationId: healthCheck
+      responses:
+        "200":
+          description: Service is healthy
+          schema:
+            $ref: "#/definitions/HealthResponse"
+          examples:
+            application/json:
+              message: "OK"
+        "503":
+          description: Service unavailable
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      description: |
+        Creates a new user account and sends a verification email.
+
+        **Note:** The user account will be created but not activated until email verification is completed.
+
+        **Password Requirements:**
+        - Minimum 8 characters
+        - Must contain at least one letter and one number
+      operationId: register
+      parameters:
+        - in: body
+          name: body
+          description: User registration details
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterRequest"
+      responses:
+        "201":
+          description: User registered successfully, verification email sent
+          schema:
+            $ref: "#/definitions/RegisterResponse"
+          examples:
+            application/json:
+              message: "Registration successful. Please check your email for verification."
+        "400":
+          description: Invalid input data
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+          examples:
+            application/json:
+              error: "Invalid email format"
+              message: "Please provide a valid email address"
+        "409":
+          description: User already exists
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+          examples:
+            application/json:
+              error: "User already exists"
+              message: "An account with this email already exists"
+        "500":
+          description: Internal server error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: |
+        Authenticate user credentials and return JWT tokens.
+
+        **Returns:**
+        - Access token (short-lived, for API requests)
+        - Refresh token (long-lived, for token renewal)
+
+        **Note:** User must have verified their email before logging in.
+      operationId: login
+      parameters:
+        - in: body
+          name: body
+          description: User login credentials
+          required: true
+          schema:
+            $ref: "#/definitions/LoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          schema:
+            $ref: "#/definitions/LoginResponse"
+          examples:
+            application/json:
+              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              refresh_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        "401":
+          description: Invalid credentials or unverified email
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+          examples:
+            application/json:
+              error: "Invalid credentials"
+              message: "Email or password is incorrect"
+        "403":
+          description: Email not verified
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+          examples:
+            application/json:
+              error: "Email not verified"
+              message: "Please verify your email before logging in"
+        "400":
+          description: Invalid input data
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Internal server error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /verify-email:
+    post:
+      tags:
+        - Email Verification
+      summary: Verify user email
+      description: |
+        Verify user email address using the token sent via email.
+
+        **Process:**
+        1. User registers and receives verification email
+        2. User clicks verification link or copies token
+        3. Token is submitted to this endpoint
+        4. Account is activated and tokens are returned
+      operationId: verifyEmail
+      parameters:
+        - in: body
+          name: body
+          description: Email verification token
+          required: true
+          schema:
+            $ref: "#/definitions/VerifyEmailRequest"
+      responses:
+        "200":
+          description: Email verified successfully, user can now login
+          schema:
+            $ref: "#/definitions/VerifyEmailResponse"
+          examples:
+            application/json:
+              message: "Email verified successfully"
+              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              refresh_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        "400":
+          description: Invalid or expired token
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+          examples:
+            application/json:
+              error: "Invalid token"
+              message: "Verification token is invalid or has expired"
+        "404":
+          description: Token not found
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Internal server error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /logout:
+    post:
+      tags:
+        - Authentication
+      summary: User logout
+      description: |
+        Logout user and invalidate the current JWT token.
+
+        **Note:** This endpoint requires authentication. The token will be blacklisted.
+      operationId: logout
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: body
+          name: body
+          description: Logout request (optional message)
+          required: false
+          schema:
+            $ref: "#/definitions/LogoutRequest"
+      responses:
+        "200":
+          description: Logout successful
+          schema:
+            $ref: "#/definitions/LogoutResponse"
+          examples:
+            application/json:
+              message: "Logout successful"
+        "401":
+          description: Unauthorized - invalid or missing token
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+          examples:
+            application/json:
+              error: "Unauthorized"
+              message: "Invalid or missing authentication token"
+        "500":
+          description: Internal server error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  RegisterRequest:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        format: email
+        description: User's email address (must be unique)
+        example: "user@example.com"
+        minLength: 5
+        maxLength: 100
+      password:
+        type: string
+        format: password
+        description: User's password (minimum 8 characters)
+        example: "SecurePass123"
+        minLength: 8
+        maxLength: 100
+    example:
+      email: "john.doe@example.com"
+      password: "MySecurePassword123"
+  RegisterResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Success message
+        example: "Registration successful. Please check your email for verification."
+  LoginRequest:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        format: email
+        description: User's registered email address
+        example: "user@example.com"
+      password:
+        type: string
+        format: password
+        description: User's password
+        example: "SecurePass123"
+    example:
+      email: "john.doe@example.com"
+      password: "MySecurePassword123"
+  LoginResponse:
+    type: object
+    properties:
+      access_token:
+        type: string
+        description: JWT access token for API authentication (expires in 15 minutes)
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+      refresh_token:
+        type: string
+        description: JWT refresh token for obtaining new access tokens (expires in 7 days)
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+  VerifyEmailRequest:
+    type: object
+    required:
+      - token
+    properties:
+      token:
+        type: string
+        description: Email verification token received via email
+        example: "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz"
+        minLength: 32
+        maxLength: 256
+    example:
+      token: "abc123def456ghi789jkl012mno345pqr678stu901vwx234yz"
+  VerifyEmailResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Success message
+        example: "Email verified successfully"
+      access_token:
+        type: string
+        description: JWT access token for immediate use after verification
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      refresh_token:
+        type: string
+        description: JWT refresh token for long-term authentication
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  LogoutRequest:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Optional logout message
+        example: "User initiated logout"
+  LogoutResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Logout confirmation message
+        example: "Logout successful"
+  HealthResponse:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Health status message
+        example: "OK"
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        description: Error type or code
+        example: "ValidationError"
+      message:
+        type: string
+        description: Human-readable error message
+        example: "The provided email address is not valid"
+      details:
+        type: object
+        description: Additional error details (optional)
+        additionalProperties: true
+    example:
+      error: "ValidationError"
+      message: "Invalid input data"
+      details:
+        field: "email"
+        reason: "Invalid email format"

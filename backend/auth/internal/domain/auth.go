@@ -1,17 +1,29 @@
 package domain
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
+const (
+	RoleUser    = "user"
+	RoleAdmin   = "admin"
+	RoleManager = "manager"
+)
 
 type Auth struct {
-	ID         string    `json:"id" gorm:"primaryKey;type:varchar(255)"`
-	Username   string    `json:"username" gorm:"uniqueIndex;type:varchar(255);not null"`
-	Email      string    `json:"email" gorm:"uniqueIndex;type:varchar(255);not null"`
-	Password   string    `json:"password" gorm:"type:varchar(255);not null"`
-	IsVerified bool      `json:"is_verified" gorm:"type:boolean;default:false"`
-	CreatedAt  time.Time `json:"created_at" gorm:"type:timestamp;not null"`
-	UpdatedAt  time.Time `json:"updated_at" gorm:"type:timestamp;not null"`
+	ID        string         `json:"id"`
+	UserID    string         `json:"user_id"`
+	Email     string         `json:"email" gorm:"not null;unique"`
+	Password  string         `json:"password" gorm:"not null"`
+	Role      string         `json:"role" gorm:"not null;size:255"`
+	Verified  bool           `json:"verified" gorm:"not null;default:false"`
+	CreatedAt time.Time      `json:"created_at" gorm:"autoCreateTime"`
+	UpdatedAt time.Time      `json:"updated_at" gorm:"autoUpdateTime"`
+	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index"`
 }
 
 func (a *Auth) TableName() string {
-	return "auths"
+	return "auth_db"
 }
