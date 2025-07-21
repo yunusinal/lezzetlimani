@@ -1,4 +1,4 @@
-
+**Resimlere tıklandığında ilgili youtube videosunda yönlendirilirsiniz.**
 
 ## Kullanıcı Auth işlemleri
 [![addres](https://img.youtube.com/vi/Q1hnGiKgFkA/0.jpg)](https://www.youtube.com/watch?v=Q1hnGiKgFkA)
