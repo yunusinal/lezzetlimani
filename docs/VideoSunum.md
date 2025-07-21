@@ -16,8 +16,15 @@
 [![cart](https://img.youtube.com/vi/JBTIM-D3D64/0.jpg)](https://www.youtube.com/watch?v=JBTIM-D3D64)
 
 
-----
-# İlgili İşlemler
+
+## Redis ve Kafka Kullanımı
+[Message Brokers (Buraya tıklayıp dosyaya gidebilirsiniz.)](/docs/message_brokers.md)
+
+
+
+
+
+# İlgili Endpoint İşlemleri
 
 ### Authentication Service (`/auth`)
 
