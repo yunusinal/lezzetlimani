@@ -1,0 +1,53 @@
+name: Notification Service CI/CD
+
+on:
+  push:
+    paths:
+      - 'notification/**'
+      - '.github/workflows/notification-ci.yml'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'notification/**'
+      - '.github/workflows/notification-ci.yml'
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./notification
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Run tests
+        run: go test ./...
+
+      - name: Build Docker image
+        run: docker build -t notification-service:latest .
+
+      # - name: Push Docker image (optional)
+      #   run: |
+      #     echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      #     docker tag notification-service:latest yourrepo/notification-service:latest
+      #     docker push yourrepo/notification-service:latest 

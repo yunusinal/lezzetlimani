@@ -1,0 +1,46 @@
+name: User Service CI/CD
+
+on:
+  push:
+    paths:
+      - 'user/**'
+      - '.github/workflows/user-ci.yml'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'user/**'
+      - '.github/workflows/user-ci.yml'
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./user/app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ../requirements.txt
+
+      - name: Run tests
+        run: |
+          if [ -d "test" ]; then pytest test; else echo "No tests found."; fi
+
+      - name: Build Docker image
+        run: docker build -t user-service:latest ../
+
+      # - name: Push Docker image (optional)
+      #   run: |
+      #     echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      #     docker tag user-service:latest yourrepo/user-service:latest
+      #     docker push yourrepo/user-service:latest 
